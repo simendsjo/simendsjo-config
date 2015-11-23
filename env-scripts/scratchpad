@@ -1,0 +1,31 @@
+#!/usr/bin/zsh
+SESSION_NAME=vimscratch
+TMPPATH=$HOME/tmp/vimscratch
+
+cd $TMPPATH
+
+####################
+# Clean up old files
+####################
+vim --servername ${SESSION_NAME} --remote-send "<ESC>:wa<CR>"
+EMPTY_FILES=( $(find $TMPPATH -type f -size 0) )
+for fullpath in ${EMPTY_FILES}
+do
+    filename=$(basename $fullpath)
+    vim --servername ${SESSION_NAME} --remote-send "<ESC>:bd $filename<CR>"
+    rm $fullpath
+done
+
+TMPFILE=$(mktemp -p $TMPPATH)
+xclip -o > $TMPFILE
+tmux list-sessions | grep -q ${SESSION_NAME}
+HAS_SESSION=$?
+VIMOPT="set ft=mail spell spelllang=nb | set autowriteall"
+if [[ ${HAS_SESSION} -eq 0 ]]
+then
+    vim --servername ${SESSION_NAME} --remote $TMPFILE
+    tmux attach-session -t ${SESSION_NAME}
+else
+    tmux new-session -s ${SESSION_NAME} \; set set-titles on \; set set-titles-string ${SESSION_NAME} \; send-keys "vim --servername ${SESSION_NAME} -c \" $VIMOPT \" $TMPFILE " C-m
+fi
+
