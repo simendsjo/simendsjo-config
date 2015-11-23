@@ -1,0 +1,6 @@
+# vim
+*.swp
+*.un~
+
+# vim bundles
+.config/nvim/bundle/neobundled/*
