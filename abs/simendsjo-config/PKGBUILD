@@ -1,0 +1,17 @@
+# Maintainer: Simen Endsjø <simendsjo+arch@gmail.com>
+pkgdesc='simendsjos Arch configuration files'
+pkgname=simendsjo-config
+pkgrel=1
+pkgver=1
+arch=('i686' 'x86_64')
+license='mit'
+url="https://github.com/simendsjo/${pkgname}"
+install=${pkgname}.install
+
+provides=('simendsjo-config')
+conflicts=('simendsjo-config')
+
+depends=('git')
+source=()
+sha256sums=()
+
