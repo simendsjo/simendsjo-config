@@ -4,3 +4,6 @@
 
 # vim bundles
 .config/nvim/bundle/neobundled/*
+
+abs/**/pkg/*
+abs/**/*.pkg.tar.xz
