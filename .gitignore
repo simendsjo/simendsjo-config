@@ -5,5 +5,6 @@
 # vim bundles
 .config/nvim/bundle/neobundled/*
 
+# Temporary package files
 abs/**/pkg/*
 abs/**/*.pkg.tar.xz
